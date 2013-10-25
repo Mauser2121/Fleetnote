@@ -22,7 +22,12 @@ public class UcarScrapper {
 	
 	public static void main(String[] args){
 		//new UcarScrapper();
-		new Rentacar();
+		//new Rentacar();
+		//new Eurotyre();
+		//new MondialPareBrise();
+		//new NationalCiter();
+		//new Entreprise();
+		new CoteRoute();
 	}
 	
 	public UcarScrapper(){
