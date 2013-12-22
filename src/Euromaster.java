@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,19 +18,38 @@ public class Euromaster {
 	{
 		mDriver = new FirefoxDriver();
 		
-		for(int i=33774;i<35000;i++)
+		for(int i=34031;i<35000;i++)
 		{
 			mDriver.get("http://centres.euromaster.fr/"+i);
 			WebElement name = mDriver.findElement(By.xpath("//*[@id='posmaininfos']/div[1]/h1"));
 			WebElement address = mDriver.findElement(By.xpath("//*[@id='posmaininfos']/div[1]/address"));
 			WebElement tel = mDriver.findElement(By.xpath("//*[@id='telfax']/span[1]"));
-			WebElement script = mDriver.findElement(By.xpath("/html/body/script[1]"));
+			WebElement ville = mDriver.findElement(By.xpath("//*[@id='posmaininfos']/div[1]/address/span"));
+			
+			
+			
+			Double Lat = null;
+			Double lng = null;
+			if (mDriver instanceof JavascriptExecutor) {
+				Lat = (Double) ((JavascriptExecutor) mDriver)
+					.executeScript("return posMarkerCoordinates.lat;");
+				
+				lng = (Double) ((JavascriptExecutor) mDriver)
+						.executeScript("return posMarkerCoordinates.lng;");
+				
+			}
+			String cp = "";
+			cp = ville.getText().split(" ")[0];
 			
 			String euro = "";
-			euro =  name.getText()+";";
-			euro += address.getText()+";";
-			euro += tel.getText()+";";
-			euro += script.getText()+";";
+			euro =  name.getText().replace("\n", "")+";";
+			euro += address.getText().replace("\n", "")+";";
+			euro += cp+";";
+			euro += Lat+";";
+			euro += lng+";";
+			euro += ville.getText().substring(cp.length()+1)+";";
+			euro += tel.getText().replace("Tel", "")+";";
+			euro += ""+";";
 			
 			if(mDriver.findElements( By.className("lf_categorie") ).size() != 0)
 			{
