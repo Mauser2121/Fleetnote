@@ -9,7 +9,11 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+import com.fleetnote.business.bean.references.Make;
+import com.fleetnote.business.dao.references.MakeDAO;
 
 
 public class AutoplusScrapper extends Thread{
@@ -25,8 +29,7 @@ public class AutoplusScrapper extends Thread{
 	
 	public static void main(String[] args) 
 	{
-		AutoplusScrapper lnew = new AutoplusScrapper();
-				
+		AutoplusScrapper lnew = new AutoplusScrapper();		
 	}	
 	
 	public AutoplusScrapper(int in)
@@ -37,68 +40,17 @@ public class AutoplusScrapper extends Thread{
 	{
 //		HtmlUnitDriver test = new HtmlUnitDriver();
 //		
-//		for(int i=0;i<1000;i++)
-//		{
-//			System.out.println("Tour" + i);
-//			test.get("http://www.masterfap.com");
-//			test.manage().deleteAllCookies();
-//			test.get("http://www.masterfap.com");
-//			test.manage().deleteAllCookies();
-//			test.get("http://www.masterfap.com");
-//			test.manage().deleteAllCookies();
-//			test.get("http://www.masterfap.com");
-//			test.manage().deleteAllCookies();
-//			test.get("http://www.masterfap.com");
-//			test.manage().deleteAllCookies();
-//			test.get("http://masterfap.com/pornstars/");
-//			test.get("http://masterfap.com/pornstars/gallery/1/index_a/page1/");
-//			test.get("http://masterfap.com/pornstars/gallery/1/index_b/page1/");
-//			test.get("http://masterfap.com/pornstars/gallery/1/index_c/page1/");
-//		}
 	}
 	
 
 	public AutoplusScrapper()
 	{
 		 lMake = new ArrayList<String>();
-//		 lMake.add("Audi");
-//		 lMake.add("Alfa-Romeo");
-//		 lMake.add("BMW");
-//		 lMake.add("Citroen");
-//		 lMake.add("Chevrolet");
-//		 lMake.add("Dacia");
-//		 lMake.add("Daihatsu");
-//		 lMake.add("Fiat");
-//		 lMake.add("Honda");
-//		 lMake.add("Hyundai");
-//		 lMake.add("Ford");
-//		 lMake.add("Isuzu");
-//		 lMake.add("Iveco");
-//		 lMake.add("Infiniti");
-//		 lMake.add("Jaguar");
-//		 lMake.add("Jeep");
-//		 lMake.add("Kia");
-//		 lMake.add("Lancia");
-//		 lMake.add("Land-Rover");
-//		 lMake.add("Lexus");
-//		 lMake.add("Mazda");
-//		 lMake.add("Mercedes");
-//		 lMake.add("Mini");
-//		 lMake.add("Mitsubishi");
-//		 lMake.add("Nissan");
-//		 lMake.add("Opel");
-//		 lMake.add("Renault");
-//		 lMake.add("Renault-Trucks");
-//		 lMake.add("Peugeot");
-//		 lMake.add("Toyota");
-//		 lMake.add("Volkswagen");
-		 lMake.add("Seat");
-		 lMake.add("Skoda");
-		 lMake.add("Smart");
-		 lMake.add("Suzuki");
-		 lMake.add("Ssangyong");
-		 lMake.add("Volvo");
+		 MakeDAO mdao = new MakeDAO();
+		 List<Make> makes = mdao.readAll();
 		 
+		 for(int i=0;i<makes.size();i++)
+			 lMake.add(makes.get(i).getDescriptionTrMake().replace(" ", "-"));
 		 
 		 Sortie = new ArrayList<String>();
 		 try {
@@ -114,8 +66,8 @@ public class AutoplusScrapper extends Thread{
 	public void parcourirMarque() throws IOException
 	{
 		
-		 mDriver = new HtmlUnitDriver();
-		 mDriver2 = new HtmlUnitDriver(); 
+		 mDriver = new FirefoxDriver();
+		 mDriver2 = new FirefoxDriver(); 
 		
 		 Iterator<String> it = lMake.iterator();
 		 //Marque
@@ -147,7 +99,7 @@ public class AutoplusScrapper extends Thread{
 						 int portes = 0;
 						 int sieges = 0;
 						 
-						 Pattern lpatternCategorie = Pattern.compile("\\(([a-zA-Z0-9 éèàâïî.-]+)\\)");
+						 Pattern lpatternCategorie = Pattern.compile("\\(([a-zA-Z0-9 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.-]+)\\)");
 						 
 						 if(ik<4)
 						 {
@@ -169,7 +121,11 @@ public class AutoplusScrapper extends Thread{
 						else
 						 {
 							 //Versions
-							 mDriver2.get(link.get(1).getAttribute("href"));
+							String linkVeh =  link.get(1).getAttribute("href");
+							String[] lv = linkVeh.split("/");
+							String idAP = lv[4].split("-")[0];
+							mDriver2.get(linkVeh);
+							
 							 List<WebElement> linfteech = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[1]/li"));
 							 for(WebElement li : linfteech)
 							 {
@@ -181,11 +137,11 @@ public class AutoplusScrapper extends Thread{
 									 {
 										 if(l[j].contains("Essence sans plomb"))
 											 tmp += "Essence"+";"; 
-										 else if(l[j].trim().equals("Courant électrique"))
+										 else if(l[j].trim().equals("Courant Ã©lectrique"))
 											 tmp += "Electrique"+";";
-										 else if(l[j].trim().equals("Diesel / Courant électrique"))
+										 else if(l[j].trim().equals("Diesel / Courant Ã©lectrique"))
 											 tmp += "Hybride Diesel"+";";
-										 else if(l[j].trim().equals("Essence courant électrique"))
+										 else if(l[j].trim().equals("Essence courant Ã©lectrique"))
 											 tmp += "Hybride essence"+";";
 										 else if(l[j].trim().equals("Essence ou gaz"))
 											 tmp += "GPL"+";";
@@ -210,7 +166,7 @@ public class AutoplusScrapper extends Thread{
 											 tmp += l[j].trim()+";"; 
 										 else
 										 {
-											 if(l[j].contains("auto") || l[j].contains("séquentielle") || l[j].contains("robot") || l[j].contains("cvt"))
+											 if(l[j].contains("auto") || l[j].contains("sÃ©quentielle") || l[j].contains("robot") || l[j].contains("cvt"))
 												 tmp += "Automatique;";
 											 else
 												 tmp += "Manuelle;";
@@ -223,7 +179,7 @@ public class AutoplusScrapper extends Thread{
 								 }
 								 else if(li.getText().contains("Puissance"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+1,li.getText().indexOf("à")).split("/");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+1,li.getText().indexOf("Ã ")).split("/");
 									 for(int j=0;j<2;j++)
 									 {
 										 tmp += l[j].replace("ch","").replace("kW", "").trim()+";"; 
@@ -285,7 +241,7 @@ public class AutoplusScrapper extends Thread{
 									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
 									 portes = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
 								 }
-								 else if(li.getText().contains("sièges"))
+								 else if(li.getText().contains("siÃ¨ges"))
 								 {
 									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
 									 sieges = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
@@ -329,11 +285,11 @@ public class AutoplusScrapper extends Thread{
 										 gps = true;
 									 else if(ullocalstr.contains("bluetooth") || ullocalstr.contains("connecting box"))
 										 bluetooth = true;
-									 else if(ullocalstr.contains("regulateur de vitesse") || ullocalstr.contains("régulateur de vitesse") || linf.getText().toLowerCase().trim().contains("tempomat") || ullocalstr.contains("limiteur de vitesse") )
+									 else if(ullocalstr.contains("regulateur de vitesse") || ullocalstr.contains("rÃ©gulateur de vitesse") || linf.getText().toLowerCase().trim().contains("tempomat") || ullocalstr.contains("limiteur de vitesse") )
 										 regul = true;
-									 else if(ullocalstr.contains("peinture métal"))
+									 else if(ullocalstr.contains("peinture mï¿½tal"))
 										 peinturemetal = true;
-									 else if(linf.getText().contains("climatisation") || ullocalstr.contains("climatisation") || ullocalstr.contains("air conditionné"))
+									 else if(linf.getText().contains("climatisation") || ullocalstr.contains("climatisation") || ullocalstr.contains("air conditionnï¿½"))
 										 clim = true;
 									 else if(ullocalstr.contains("lecteur cd") || ullocalstr.contains(" cd "))
 										 lecteurcd = true;

@@ -18,8 +18,8 @@ public class MyWebDriver extends HtmlUnitDriver {
 	        setJavascriptEnabled(false);
 
 //	        getWebClient().setCssEnabled(false);
-	        getWebClient().setThrowExceptionOnFailingStatusCode(false);
-	        getWebClient().setThrowExceptionOnScriptError(false);
+//	        getWebClient().setThrowExceptionOnFailingStatusCode(false);
+//	        getWebClient().setThrowExceptionOnScriptError(false);
 
 //	        getWebClient().setCssErrorHandler(new SilentCssErrorHandler());
 	        getWebClient().setIncorrectnessListener(new IncorrectnessListener()
