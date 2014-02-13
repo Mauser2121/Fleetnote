@@ -101,7 +101,7 @@ public class AutoplusScrapper extends Thread{
 						 int portes = 0;
 						 int sieges = 0;
 						 
-						 Pattern lpatternCategorie = Pattern.compile("\\(([a-zA-Z0-9 ������.-]+)\\)");
+						 Pattern lpatternCategorie = Pattern.compile("\\(([a-zA-Z0-9 éèàöëä.-]+)\\)");
 						 
 						 if(ik<4)
 						 {
@@ -132,43 +132,43 @@ public class AutoplusScrapper extends Thread{
 							 for(WebElement li : linfteech)
 							 {
 								 String tmp = "";
-								 if(li.getText().contains("Moteur"))
+								 if(li.getText().toLowerCase().contains("moteur"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).split(",");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).toLowerCase().split(",");
 									 for(int j=0;j<3;j++)
 									 {
-										 if(l[j].contains("Essence sans plomb"))
+										 if(l[j].toLowerCase().contains("essence sans plomb"))
 											 tmp += "Essence"+";"; 
-										 else if(l[j].trim().equals("Courant électrique"))
+										 else if(l[j].trim().equals("courant électrique"))
 											 tmp += "Electrique"+";";
-										 else if(l[j].trim().equals("Diesel / Courant électrique"))
+										 else if(l[j].trim().equals("diesel / courant électrique"))
 											 tmp += "Hybride Diesel"+";";
-										 else if(l[j].trim().equals("Essence courant électrique"))
+										 else if(l[j].trim().equals("essence courant électrique"))
 											 tmp += "Hybride essence"+";";
-										 else if(l[j].trim().equals("Essence ou gaz"))
+										 else if(l[j].trim().equals("essence ou gaz"))
 											 tmp += "GPL"+";";
 										 else
 											 tmp += l[j].trim()+";";
 									 }
 								 }
-								 else if(li.getText().contains("Dimensions"))
+								 else if(li.getText().toLowerCase().contains("dimensions"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).split("x");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).toLowerCase().split("x");
 									 for(int j=0;j<3;j++)
 									 {
 										 tmp += l[j].replace("m","").replace(".", ",")+";"; 
 									 }
 								 }
-								 else if(li.getText().contains("Transmission"))
+								 else if(li.getText().toLowerCase().contains("boîte"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+2).substring(li.getText().indexOf(":")+3).split(",");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+2).substring(li.getText().indexOf(":")+3).toLowerCase().split(",");
 									 for(int j=0;j<2;j++)
 									 {
 										 if(j==0)
 											 tmp += l[j].trim()+";"; 
 										 else
 										 {
-											 if(l[j].contains("auto") || l[j].contains("séquentielle") || l[j].contains("robot") || l[j].contains("cvt"))
+											 if(l[j].toLowerCase().contains("auto") || l[j].toLowerCase().contains("séquentielle") || l[j].toLowerCase().contains("robot") || l[j].toLowerCase().contains("cvt"))
 												 tmp += "Automatique;";
 											 else
 												 tmp += "Manuelle;";
@@ -179,66 +179,40 @@ public class AutoplusScrapper extends Thread{
 										
 									 }
 								 }
-								 else if(li.getText().contains("Puissance"))
+								 else if(li.getText().toLowerCase().contains("puissance max"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+1,li.getText().indexOf("à")).split("/");
+									 String[] l = li.getText().toLowerCase().substring(li.getText().indexOf(":")+1,li.getText().toLowerCase().indexOf("à")).toLowerCase().split("/");
 									 for(int j=0;j<2;j++)
 									 {
-										 tmp += l[j].replace("ch","").replace("kW", "").trim()+";"; 
+										 tmp += l[j].toLowerCase().replace("ch","").replace("kW", "").trim()+";"; 
 									 }
 								 }
-								 else if(li.getText().contains("Coffre"))
+								 else if(li.getText().toLowerCase().contains("coffre"))
 								 {
 									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).split("/");
 									 for(int j=0;j<2;j++)
 									 {
-										 tmp += l[j].replace("dm3","")+";"; 
+										 tmp += l[j].toLowerCase().replace("dm3","")+";"; 
 									 }
 								 }
-								 else 
-								 {
-									 tmp = li.getText().substring(li.getText().indexOf(":")+1).replace(" m", "").replace(" L", "") + ";";
-								 }
-								
-								 ligneSortie +=  tmp ;
-							 }
-							 
-							 List<WebElement> linfomech = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[2]/li"));
-							 for(WebElement li : linfomech)
-							 {
-								 String tmp = "";
-								 if(li.getText().contains("Consommation"))
+								 else  if(li.getText().toLowerCase().contains("consommation"))
 								 {
 									 String conso = li.getText().substring(li.getText().indexOf(":")+1);
 									 tmp = conso.substring(1,conso.indexOf("/")).replace("L", "").replace(".", ",").trim() + ";";
 								 }
-								 else if(li.getText().contains("Emisssion"))
+								 else if(li.getText().toLowerCase().contains("emisssion"))
 								 {
 									 tmp = li.getText().substring(li.getText().indexOf(":")+1).replace("g/km", "").trim() + ";";
 								 }
-								 else if(li.getText().contains("charge"))
+								 else if(li.getText().toLowerCase().contains("charge"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).trim().split("/");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).trim().toLowerCase().split("/");
 									 for(int j=0;j<2;j++)
 									 {
 										 tmp += l[j].replace("ch","").replace("kg", "").trim()+";"; 
 									 }
 									 
-								 }
-								 else
-								 {
-									 tmp = li.getText().substring(li.getText().indexOf(":")+1).replace("km/h", "").replace(" s", "") + ";";
-								 }
-								
-								 ligneSortie +=  tmp ;
-							 }
-							 
-							 List<WebElement> linfocomp = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[3]/li"));
-							 for(WebElement li : linfocomp)
-							 {
-								
-								 String tmp = "";
-								 if(li.getText().contains("portes"))
+								 }else if(li.getText().contains("portes"))
 								 {
 									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
 									 portes = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
@@ -248,10 +222,36 @@ public class AutoplusScrapper extends Thread{
 									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
 									 sieges = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
 								 }
-								 else
+								 else 
 								 {
-									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
+									 tmp = li.getText().toLowerCase().substring(li.getText().indexOf(":")+1).replace(" m", "").replace(" L", "") + ";";
 								 }
+								
+								 ligneSortie +=  tmp ;
+							 }
+							 
+							 List<WebElement> linfomech = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[2]/li"));
+							 for(WebElement li : linfomech)
+							 {
+								 String tmp = "";
+								
+								
+									 tmp = li.getText().substring(li.getText().indexOf(":")+1).replace("km/h", "").replace(" s", "") + ";";
+								
+								
+								 ligneSortie +=  tmp ;
+							 }
+							 
+							 List<WebElement> linfocomp = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[3]/li"));
+							 for(WebElement li : linfocomp)
+							 {
+								
+								 String tmp = "";
+								
+								 
+								
+									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
+								
 								
 								 ligneSortie +=  tmp ;
 							 }
