@@ -25,13 +25,15 @@
         <property name="hibernate.c3p0.max_statements">0</property><!-- Taille du cache de statements de C3P0. 0 = désactive le cache -->
         
        <mapping package="com.fleetnote.business.bean" />
-        <mapping class="com.fleetnote.business.bean.references.Make" /> 
+           <mapping class="com.fleetnote.business.bean.references.Make" /> 
         <mapping class="com.fleetnote.business.bean.references.Model" />
         <mapping class="com.fleetnote.business.bean.references.Version" />
         <mapping class="com.fleetnote.business.bean.references.TrVehicle" />
         <mapping class="com.fleetnote.business.bean.references.TrFuelType" />
         <mapping class="com.fleetnote.business.bean.references.TrFuelCardProduct" />
+        <mapping class="com.fleetnote.business.bean.references.TrFuelCardProvider" />
         <mapping class="com.fleetnote.business.bean.references.Module"/>
+        <mapping class="com.fleetnote.business.bean.AccountingLevel" />
         <mapping class="com.fleetnote.business.bean.User" />
         <mapping class="com.fleetnote.business.bean.UserInfo" />
         <mapping class="com.fleetnote.business.bean.Company" />
@@ -44,47 +46,55 @@
         <mapping class="com.fleetnote.business.bean.RVehicleUserFuelCard" />
         <mapping class="com.fleetnote.business.bean.ServiceReferential" />
         <mapping class="com.fleetnote.business.bean.RServiceReferentialProvider" />
-        <mapping class="com.fleetnote.business.bean.Chapter" />
         <mapping class="com.fleetnote.business.bean.Provider" />
-        <mapping class="com.fleetnote.business.bean.RChapterUsersGroup" />
         <mapping class="com.fleetnote.business.bean.UsersGroup" />
         <mapping class="com.fleetnote.business.bean.DiscountsGroup" />
-        <mapping class="com.fleetnote.business.bean.RulesGroup" />
         <mapping class="com.fleetnote.business.bean.Category" />
         <mapping class="com.fleetnote.business.bean.Discount" />
         <mapping class="com.fleetnote.business.bean.RProviderContact" />
         <mapping class="com.fleetnote.business.bean.Rule" />
         <mapping class="com.fleetnote.business.bean.Step" />
         <mapping class="com.fleetnote.business.bean.Contact" />
-        <mapping class="com.fleetnote.business.bean.BooleanRule" />
         <mapping class="com.fleetnote.business.bean.PartnerPOI" />
         <mapping class="com.fleetnote.business.bean.TrPartner" />
         <mapping class="com.fleetnote.business.bean.TrPrivilegedPartner"/>
         <mapping class="com.fleetnote.business.bean.RPrivilegedPartnerCategory"/>
         <mapping class="com.fleetnote.business.bean.TrPartnerCategory" />
         <mapping class="com.fleetnote.business.bean.TrPrivilegedPartnerPoi"/>
+
+       	<mapping class="com.fleetnote.business.bean.TrCity"/>
+
         <mapping class="com.fleetnote.business.bean.TrDepartment" />
         <mapping class="com.fleetnote.business.bean.TrCarRental" />
         <mapping class="com.fleetnote.business.bean.TrRentalsPartner" />
+        <mapping class="com.fleetnote.business.bean.ManualMileage" />
+      	<mapping class="com.fleetnote.business.bean.UserType" />
+        <mapping class="com.fleetnote.business.bean.RUserTypeModules"/> 
+        <mapping class="com.fleetnote.business.bean.RChapterUsersGroup" />
+        <mapping class="com.fleetnote.business.bean.Chapter" />
+        <mapping class="com.fleetnote.business.bean.RulesGroup" />
+        <mapping class="com.fleetnote.business.bean.BooleanRule" />
+        <mapping class="com.fleetnote.business.bean.NumericRule" />
+        <mapping class="com.fleetnote.business.bean.InclusionExclusionRule" />
+        <mapping class="com.fleetnote.business.bean.OtherRule" />        
+        <mapping class="com.fleetnote.business.bean.CarOptionsGroup"/>
+
+        <mapping class="com.fleetnote.business.bean.CarOption"/>
+
+        <mapping class="com.fleetnote.business.bean.CarOption"/>        
+        <mapping class="com.fleetnote.business.bean.CarpolicyRecord" />
+
         <mapping class="com.fleetnote.business.bean.TrTvs" /> 
         <mapping class="com.fleetnote.business.bean.TrTvsAdd" />
         <mapping class="com.fleetnote.business.bean.TrTvsRules" />
-        <mapping class="com.fleetnote.business.bean.ManualMileage" />
-        <mapping class="com.fleetnote.business.bean.NumericRule" />
-        <mapping class="com.fleetnote.business.bean.InclusionExclusionRule" />
-        <mapping class="com.fleetnote.business.bean.OtherRule" />
         <mapping class="com.fleetnote.business.bean.stats.ParametersThema"/>
         <mapping class="com.fleetnote.business.bean.stats.ParametersGroup"/>
         <mapping class="com.fleetnote.business.bean.stats.Parameter"/>
         <mapping class="com.fleetnote.business.bean.stats.BooleanParameter"/>
         <mapping class="com.fleetnote.business.bean.stats.TextParameter"/>
         <mapping class="com.fleetnote.business.bean.stats.NumericParameter"/>
-        <mapping class="com.fleetnote.business.bean.CarOptionsGroup"/>
-        <mapping class="com.fleetnote.business.bean.CarOption"/>
         <mapping class="com.fleetnote.business.bean.stats.Alert"/>
         <mapping class="com.fleetnote.business.bean.Subscriber" /> 
-		<mapping class="com.fleetnote.business.bean.UserType" />
-        <mapping class="com.fleetnote.business.bean.RUserTypeModules"/> 
         <mapping class="com.fleetnote.business.bean.LegalLevel"/> 
         <mapping class="com.fleetnote.business.bean.HierarchicalLevel"/>   
        	<mapping class="com.fleetnote.business.bean.RUserTypeHierarchicalLevel"/>
@@ -96,7 +106,8 @@
         <mapping class="com.fleetnote.business.bean.RUserHierarchicalLevel"/>
         <mapping class="com.fleetnote.business.bean.RUserLegalLevel"/>
         <mapping class="com.fleetnote.business.bean.UserHash"/>
-
+        <mapping class="com.fleetnote.business.bean.RUserCampaignTracking"/>
+        <mapping class="com.fleetnote.business.bean.Campaign"/>
        
     </session-factory>
 </hibernate-configuration>

@@ -3,6 +3,7 @@
 	<name>Fleetnote scrap</name>
 	<comment></comment>
 	<projects>
+		<project>FleetNoteKernel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

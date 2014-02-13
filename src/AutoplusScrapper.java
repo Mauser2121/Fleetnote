@@ -16,6 +16,8 @@ import com.fleetnote.business.bean.references.Make;
 import com.fleetnote.business.dao.references.MakeDAO;
 
 
+
+
 public class AutoplusScrapper extends Thread{
 
 	private ArrayList<String> lMake ;
@@ -287,7 +289,7 @@ public class AutoplusScrapper extends Thread{
 										 bluetooth = true;
 									 else if(ullocalstr.contains("regulateur de vitesse") || ullocalstr.contains("régulateur de vitesse") || linf.getText().toLowerCase().trim().contains("tempomat") || ullocalstr.contains("limiteur de vitesse") )
 										 regul = true;
-									 else if(ullocalstr.contains("peinture m�tal"))
+									 else if(ullocalstr.contains("peinture métal"))
 										 peinturemetal = true;
 									 else if(linf.getText().contains("climatisation") || ullocalstr.contains("climatisation") || ullocalstr.contains("air conditionn�"))
 										 clim = true;
@@ -345,7 +347,7 @@ public class AutoplusScrapper extends Thread{
        
         FileWriter writer = null;
         try{
-             writer = new FileWriter("Bdd2.csv", true);
+             writer = new FileWriter("Bdd333.csv", true);
              writer.write(texte,0,texte.length());
         }catch(IOException ex){
             ex.printStackTrace();
