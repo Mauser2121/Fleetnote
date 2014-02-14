@@ -49,7 +49,7 @@ public class AutoplusScrapper extends Thread{
 	{
 		 lMake = new ArrayList<String>();
 		 MakeDAO mdao = new MakeDAO();
-		 List<Make> makes = mdao.readAll();
+		 List<Make> makes = mdao.getMakeByDescription("Peugeot");
 		 
 		 for(int i=0;i<makes.size();i++)
 			 lMake.add(makes.get(i).getDescriptionTrMake().replace(" ", "-"));
@@ -68,20 +68,20 @@ public class AutoplusScrapper extends Thread{
 	public void parcourirMarque() throws IOException
 	{
 		
-		 mDriver = new FirefoxDriver();
-		 mDriver2 = new FirefoxDriver(); 
+		 mDriver = new MyWebDriver();
+		 mDriver2 = new MyWebDriver(); 
 		
 		 Iterator<String> it = lMake.iterator();
 		 //Marque
 		 while(it.hasNext())
 		 {
 			 String marque = it.next();
-			 mDriver.get( "http://voiture.autoplus.fr/list/make/"+marque);
+			 mDriver.get( "http://voiture.autoplus.fr/list/make/"+"Citroen");
 			 WebElement nbreResult = mDriver.findElement(By.xpath("//*[@id='pnf-result']/table/tfoot/tr/td[2]"));
 			 Integer maxpage = Integer.decode(nbreResult.getText().substring(nbreResult.getText().lastIndexOf("/")+1));
 			 for(int i =1;i<maxpage+1;i++)	 
 			 {
-				 mDriver.get("http://voiture.autoplus.fr/list/make/"+marque+"/?page="+i);
+				 mDriver.get("http://voiture.autoplus.fr/list/make/"+"Citroen"+"/?page="+i);
 				 List<WebElement> lm =  mDriver.findElements(By.xpath("//*[@id='pnf-result']/table/tbody/tr"));
 				 
 				
@@ -115,7 +115,7 @@ public class AutoplusScrapper extends Thread{
 									 ligneSortie += cell.getText().replace(lmatcher.group(1), "").replace("(", "").replace(")", "") +";"+ modele;
 								 }
 								 else
-									 ligneSortie += ";";
+									 ligneSortie += ";;";
 							 }
 							 else
 								 ligneSortie += cell.getText().replace(marque, "").trim() + ";";
@@ -128,7 +128,7 @@ public class AutoplusScrapper extends Thread{
 							String idAP = lv[4].split("-")[0];
 							mDriver2.get(linkVeh);
 							
-							 List<WebElement> linfteech = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul[1]/li"));
+							 List<WebElement> linfteech = mDriver2.findElements(By.xpath("//*[@id='tech-data']/div[1]/ul/li"));
 							 for(WebElement li : linfteech)
 							 {
 								 String tmp = "";
@@ -154,21 +154,21 @@ public class AutoplusScrapper extends Thread{
 								 else if(li.getText().toLowerCase().contains("dimensions"))
 								 {
 									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).toLowerCase().split("x");
-									 for(int j=0;j<3;j++)
+									 for(int j=0;j<l.length;j++)
 									 {
 										 tmp += l[j].replace("m","").replace(".", ",")+";"; 
 									 }
 								 }
 								 else if(li.getText().toLowerCase().contains("boîte"))
 								 {
-									 String[] l = li.getText().substring(li.getText().indexOf(":")+2).substring(li.getText().indexOf(":")+3).toLowerCase().split(",");
+									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).toLowerCase().split(",");
 									 for(int j=0;j<2;j++)
 									 {
-										 if(j==0)
+										 if(j==1)
 											 tmp += l[j].trim()+";"; 
 										 else
 										 {
-											 if(l[j].toLowerCase().contains("auto") || l[j].toLowerCase().contains("séquentielle") || l[j].toLowerCase().contains("robot") || l[j].toLowerCase().contains("cvt"))
+											 if(l[j].contains("auto") || l[j].contains("séquentielle") || l[j].contains("robot") || l[j].contains("cvt"))
 												 tmp += "Automatique;";
 											 else
 												 tmp += "Manuelle;";
@@ -209,17 +209,17 @@ public class AutoplusScrapper extends Thread{
 									 String[] l = li.getText().substring(li.getText().indexOf(":")+1).trim().toLowerCase().split("/");
 									 for(int j=0;j<2;j++)
 									 {
-										 tmp += l[j].replace("ch","").replace("kg", "").trim()+";"; 
+										 tmp += l[j].toLowerCase().replace("ch","").replace("kg", "").trim()+";"; 
 									 }
 									 
-								 }else if(li.getText().contains("portes"))
+								 }else if(li.getText().toLowerCase().contains("portes"))
 								 {
-									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
+									 tmp = li.getText().toLowerCase().substring(li.getText().indexOf(":")+1) + ";";
 									 portes = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
 								 }
-								 else if(li.getText().contains("sièges"))
+								 else if(li.getText().toLowerCase().contains("sièges"))
 								 {
-									 tmp = li.getText().substring(li.getText().indexOf(":")+1) + ";";
+									 tmp = li.getText().toLowerCase().substring(li.getText().indexOf(":")+1) + ";";
 									 sieges = Integer.decode(li.getText().substring(li.getText().indexOf(":")+1).trim());
 								 }
 								 else 
@@ -347,7 +347,7 @@ public class AutoplusScrapper extends Thread{
        
         FileWriter writer = null;
         try{
-             writer = new FileWriter("Bdd333.csv", true);
+             writer = new FileWriter("BddVehicules.csv", true);
              writer.write(texte,0,texte.length());
         }catch(IOException ex){
             ex.printStackTrace();
