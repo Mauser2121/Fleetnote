@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -32,7 +33,9 @@ public class TotalGr {
 	    
 		mDriver = new ChromeDriver(cap);
 		connect("87234197002", "we-care12");
+		getTID();
 		getTransactions("01/01/2015","01/06/2015",true);
+		getCards();
 	}
 	
 	
@@ -65,6 +68,36 @@ public class TotalGr {
 		mDriver.findElement(By.name("rechercher")).click();
 		mDriver.get("https://gronline.total.fr/secure/clients/suivi/transactionresultat.do?method=exporterExcelTransaction");
 	
+	}
+	
+	public void getCards(){
+		mDriver.get("https://gronline.total.fr/secure/clients/supports/recherche.do?navRefClicked=nav.clients.supports.recherche");
+		WebElement nouveau = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[1]/input"));	
+		WebElement fab = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[2]/input"));
+		WebElement actif = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[3]/input"));
+		WebElement renouvellement = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[4]/input"));
+		WebElement arenouveler = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[5]/input"));
+		WebElement annule = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[6]/input"));
+		WebElement oppose = mDriver.findElement(By.xpath("//*[@id='search-main-content']/div[2]/div[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td[7]/input"));
+		
+		fab.click();
+		renouvellement.click();
+		
+		WebElement rechercher = mDriver.findElement(By.name("rechercher"));
+		rechercher.click();
+		mDriver.get("https://gronline.total.fr/secure/clients/supports/resultatrecherche.do?method=exporterExcelEtatDeParc");
+	}
+	
+	
+	public void getTID(){
+		mDriver.get("https://gronline.total.fr/secure/clients/rapports/telechargementtid.do?navRefClicked=nav.clients.rapports.transactionsfacturees");
+		
+		List<WebElement> lines = mDriver.findElements(By.xpath("//*[@id='tidClientPR']/tbody/tr"));
+		
+		for(WebElement line : lines){
+			System.out.println(line.findElement(By.tagName("a")).getAttribute("href"));
+		}
+		
 	}
 	
 	
