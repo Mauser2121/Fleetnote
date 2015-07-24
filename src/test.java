@@ -9,10 +9,8 @@ public class test {
 	
 	public static void main(String[] args) throws InterruptedException, IOException 
 	{
-		WebDriver mDriver = new FirefoxDriver();
-		
-		mDriver.get("http://ucar.fr/agences/UCAR_TREVOUX-938.html");
 		
 		
+		TotalGr tgr = new TotalGr();
 	}
 }
