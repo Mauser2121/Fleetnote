@@ -1,6 +1,13 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import models.Password;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,9 +22,11 @@ import org.openqa.selenium.support.ui.Select;
 public class TotalGr {
 
 	private WebDriver mDriver;
+	private List<Password> passwords = new ArrayList<Password>();
+	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");///TODO : Déporter dans une librairie ou passez à JAVA 7 ou 8
 	
 	public TotalGr(){
-		System.setProperty("webdriver.chrome.driver","/Users/Erz/Documents/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","/env_dev/chromedriver.exe");
 		
 		ChromeOptions options = new ChromeOptions();
 	    Map<String, Object> prefs = new HashMap<String, Object>();
@@ -32,10 +41,33 @@ public class TotalGr {
 	   
 	    
 		mDriver = new ChromeDriver(cap);
-		connect("87234197002", "we-care12");
-		getTID();
-		getTransactions("01/01/2015","01/06/2015",true);
-		getCards();
+		passwords.add(new Password("Lafarge", "87782862005 ","we-care12"));
+		passwords.add(new Password("Caldeo","87234197002","we-care12"));
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DATE,1);
+		cal.set(Calendar.MONTH,0);
+		cal.set(Calendar.YEAR,2015);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+	
+		
+		for (int i = 0; i < passwords.size(); i++) {
+			
+			connect(passwords.get(i).getLogin(), passwords.get(i).getPassword());
+			for(int j=0;j<7;j++){
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+				Date firstDayOfMonth = cal.getTime();  
+				cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+				Date lastDayOfMonth = cal.getTime();
+				getTransactions(df.format(firstDayOfMonth),df.format(lastDayOfMonth),true);
+				cal.add(Calendar.MONTH, 1);
+		
+			}
+		
+			getCards();
+		}
+		
+		
 	}
 	
 	
@@ -56,7 +88,10 @@ public class TotalGr {
 		
 		WebElement dateMin = mDriver.findElement(By.name("criteres.dateTransactionMin"));
 		WebElement dateMax = mDriver.findElement(By.name("criteres.dateTransactionMax"));
+		dateMin.clear();
 		dateMin.sendKeys(min);
+		
+		dateMax.clear();
 		dateMax.sendKeys(max);
 		
 		Select selectFacturation =new Select(mDriver.findElement(By.name("natureTransaction")));
