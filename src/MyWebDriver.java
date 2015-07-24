@@ -14,14 +14,14 @@ public class MyWebDriver extends HtmlUnitDriver {
 
 	    public MyWebDriver ()
 	    {
-	        super(BrowserVersion.FIREFOX_10);
-	        setJavascriptEnabled(false);
+	        super(BrowserVersion.FIREFOX_17);
+	        setJavascriptEnabled(true);
 
 //	        getWebClient().setCssEnabled(false);
 //	        getWebClient().setThrowExceptionOnFailingStatusCode(false);
 //	        getWebClient().setThrowExceptionOnScriptError(false);
-
-//	        getWebClient().setCssErrorHandler(new SilentCssErrorHandler());
+	        
+	        getWebClient().setCssErrorHandler(new SilentCssErrorHandler());
 	        getWebClient().setIncorrectnessListener(new IncorrectnessListener()
 	        {
 	            public void notify(String message, Object source)

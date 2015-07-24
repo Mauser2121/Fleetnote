@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.xpath.XPathContext;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,15 @@ public class Eurotyre {
 
 	private String texteCSV = "NOM;ADRESSE;CP;LAT;LON;VILLE;TEL;EMAIL\r\n";
 	
+	public static void main(String[] args) throws InterruptedException, IOException 
+	{
+		new Eurotyre();
+	}
+	
+	
 	public Eurotyre(){
 		
+		System.out.println(new XPathContext().getClass().getProtectionDomain().getCodeSource().getLocation());
 		
 		WebDriver webDriver = new FirefoxDriver();
 		
@@ -84,7 +92,7 @@ public class Eurotyre {
    {
        FileWriter writer = null;
        try{
-            writer = new FileWriter("Eurotyre.csv", true);
+            writer = new FileWriter("Eurotyre2.csv", true);
             writer.write(texte,0,texte.length());
        }catch(IOException ex){
            ex.printStackTrace();

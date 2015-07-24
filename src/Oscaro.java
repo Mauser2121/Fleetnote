@@ -19,7 +19,7 @@ public class Oscaro {
 	
 	public Oscaro() throws InterruptedException{
 		
-		mDriver = new FirefoxDriver();
+		mDriver = new MyWebDriver();
 		
 		String sortie="";
 		for(int i=1;i<1000;i++)

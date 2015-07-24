@@ -1,0 +1,164 @@
+Marque;description;code
+42;Premium ;Ren_premium
+42;Midlum ;Ren_midlum
+42;Kerax ;Ren_kerax
+42;Gamme G ;Ren_gamme_g
+42;Midliner ;Ren_midliner
+42;Premium Lander ;Ren_premium_lander
+42;Gamme S ;Ren_gamme_s
+42;Magnum ;Ren_magnum
+42;Gamme M ;Ren_gamme_m
+42;Mascott ;Ren_mascott
+42;Gamme C ;Ren_gamme_c
+42;TRM ;Ren_trm
+42;CBH ;Ren_cbh
+42;AE ;Ren_ae
+42;Gamme R ;Ren_gamme_r
+42;Gamme T ;Ren_gamme_t
+42;Major ;Ren_major
+42;Manager ;Ren_manager
+42;220.16 ;Ren_220.16
+42;PR 100 ;Ren_pr_100
+57;Atego ;Mer_atego
+57;Actros ;Mer_actros
+57;SK ;Mer_sk
+57;Axor ;Mer_axor
+57;2628;Mer_2628
+57;Vario ;Mer_vario
+57;LK ;Mer_lk
+57;1619;Mer_1619
+57;814;Mer_814
+57;Sprinter ;Mer_sprinter
+57;1824;Mer_1824
+57;Arocs ;Mer_arocs
+57;LS ;Mer_ls
+57;1935;Mer_1935
+57;Econic ;Mer_econic
+57;2629;Mer_2629
+57;914;Mer_914
+57;MK ;Mer_mk
+57;2631;Mer_2631
+57;1124;Mer_1124
+57;1922;Mer_1922
+57;1827;Mer_1827
+57;1726;Mer_1726
+57;1117;Mer_1117
+57;2024;Mer_2024
+57;1417;Mer_1417
+57;1820;Mer_1820
+57;917;Mer_917
+57;1928;Mer_1928
+57;2626;Mer_2626
+57;3234;Mer_3234
+57;O 530 ;Mer_o_530
+57;O 405 ;Mer_o_405
+57;O 614 ;Mer_o_614
+57;Citaro ;Mer_citaro
+57;O 407 ;Mer_o_407
+57;Integro ;Mer_integro
+57;O 408 ;Mer_o_408
+57;O 100 ;Mer_o_100
+57;405 G ;Mer_405_g
+57;O 345 ;Mer_o_345
+55;Eurocargo ;Ive_eurocargo
+55;Stralis ;Ive_stralis
+55;Trakker ;Ive_trakker
+55;Daily ;Ive_daily
+55;Eurotech ;Ive_eurotech
+55;Eurotrakker ;Ive_eurotrakker
+55;Turbostar ;Ive_turbostar
+55;Cursor ;Ive_cursor
+55;Eurostar ;Ive_eurostar
+55;Magirus ;Ive_magirus
+55;Tector ;Ive_tector
+55;330.30 ;Ive_330.30
+55;Ecostralis ;Ive_ecostralis
+120;TGA ;MAN_tga
+120;TGS ;MAN_tgs
+120;TGL ;MAN_tgl
+120;TGM ;MAN_tgm
+120;F2000 ;MAN_f2000
+120;LE ;MAN_le
+120;TGX ;MAN_tgx
+120;FE ;MAN_fe
+120;L2000 ;MAN_l2000
+120;26.414 ;MAN_26.414
+120;18.224 ;MAN_18.224
+120;19.403 ;MAN_19.403
+120;TG ;MAN_tg
+120;19.414 ;MAN_19.414
+120;19.372 ;MAN_19.372
+120;FLS ;MAN_fls
+120;18.413 ;MAN_18.413
+120;19.322 ;MAN_19.322
+120;19.364 ;MAN_19.364
+120;18.410 ;MAN_18.410
+120;32.322 ;MAN_32.322
+120;18.264 ;MAN_18.264
+120;26.314 ;MAN_26.314
+120;26.403 ;MAN_26.403
+120;AK ;MAN_ak
+120;26.322 ;MAN_26.322
+120;12.163 ;MAN_12.163
+120;26.272 ;MAN_26.272
+120;26.372 ;MAN_26.372
+52;FL ;Vol_fl
+52;FM ;Vol_fm
+52;FL6 ;Vol_fl6
+52;FM12 ;Vol_fm12
+52;FH12 ;Vol_fh12
+52;FH ;Vol_fh
+52;FL7 ;Vol_fl7
+52;FL10 ;Vol_fl10
+52;FM9 ;Vol_fm9
+52;FE ;Vol_fe
+52;FH13 ;Vol_fh13
+52;FM7 ;Vol_fm7
+52;FM13 ;Vol_fm13
+52;N10 ;Vol_n10
+52;FH16 ;Vol_fh16
+52;F12 ;Vol_f12
+52;FM11 ;Vol_fm11
+52;VNL ;Vol_vnl
+52;F10 ;Vol_f10
+52;NH12 ;Vol_nh12
+52;F16 ;Vol_f16
+52;F6 ;Vol_f6
+52;FMX ;Vol_fmx
+121;CF85 ;DAF_cf85
+121;CF ;DAF_cf
+121;XF ;DAF_xf
+121;CF75 ;DAF_cf75
+121;LF45 ;DAF_lf45
+121;LF ;DAF_lf
+121;85;DAF_85
+121;LF55 ;DAF_lf55
+121;XF95 ;DAF_xf95
+121;XF105 ;DAF_xf105
+121;95;DAF_95
+121;95 ATI ;DAF_95_ati
+121;45 ATI ;DAF_45_ati
+121;FA ;DAF_fa
+121;2300;DAF_2300
+122;P ;Sca_p
+122;R ;Sca_r
+122;M ;Sca_m
+122;R420 ;Sca_r420
+122;G ;Sca_g
+122;L ;Sca_l
+122;H ;Sca_h
+122;C ;Sca_c
+122;113;Sca_113
+122;R124 ;Sca_r124
+122;T ;Sca_t
+122;Torpedo ;Sca_torpedo
+122;LA ;Sca_la
+122;P114 ;Sca_p114
+123;Elite ;Den_elite
+124;S 315 NF ;Set_s_315_nf
+124;S 319 NF ;Set_s_319_nf
+124;S 315 UL ;Set_s_315_ul
+124;S 215 SL ;Set_s_215_sl
+124;S 415 NF ;Set_s_415_nf
+124;S 215 UL ;Set_s_215_ul
+124;S 415 UL ;Set_s_415_ul

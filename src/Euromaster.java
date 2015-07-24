@@ -7,7 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 
 public class Euromaster {
@@ -20,6 +23,7 @@ public class Euromaster {
 		
 		for(int i=34031;i<35000;i++)
 		{
+			
 			mDriver.get("http://centres.euromaster.fr/"+i);
 			WebElement name = mDriver.findElement(By.xpath("//*[@id='posmaininfos']/div[1]/h1"));
 			WebElement address = mDriver.findElement(By.xpath("//*[@id='posmaininfos']/div[1]/address"));

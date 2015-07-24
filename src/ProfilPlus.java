@@ -2,12 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class ProfilPlus {
 
@@ -16,9 +14,9 @@ public class ProfilPlus {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		mDriver = new HtmlUnitDriver(true);
+		mDriver = new FirefoxDriver();
 
-		String getByCityTemplate = "http://agence.profilplus.fr/search?query=XXXTOREPLACEXXX&st_like[CATEGORIE_DE_VEHICULE][]=V%C3%A9hicule+L%C3%A9ger";
+		String getByCityTemplate = "http://agence.profilplus.fr/search?page=XXXTOREPLACEXXX&query=France&st_like%5BCATEGORIE_DE_VEHICULE%5D%5B%5D=";
 		String xPathLastSeeDetails = "//*[@class='last see-details']";
 		String fullUrlSearch;
 
@@ -35,14 +33,9 @@ public class ProfilPlus {
 			e.printStackTrace();
 		}
 
-		for (int i = 1; i <= 2; ++i) {
+		for (int i = 1; i <= 10; ++i) {
 			fullUrlSearch = getByCityTemplate;
-			if (i < 10)
-				fullUrlSearch = fullUrlSearch.replace("XXXTOREPLACEXXX", "0"
-						+ i);
-			else
-				fullUrlSearch = fullUrlSearch
-						.replace("XXXTOREPLACEXXX", "" + i);
+			fullUrlSearch = fullUrlSearch.replace("XXXTOREPLACEXXX", "" + i);
 			mDriver.get(fullUrlSearch);
 			List<WebElement> toDaNextStepah = null;
 			try {

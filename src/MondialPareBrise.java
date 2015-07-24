@@ -14,6 +14,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class MondialPareBrise {
 
+	public static void main(String[] args) {
+		new MondialPareBrise();
+	}
+	
 	Map<String,Agence> listeAgence = new HashMap<String, Agence>();
 	private String texteCSV = "NOM;ADRESSE;CP;LAT;LON;VILLE;TEL;EMAIL\r\n";
 	public MondialPareBrise(){
