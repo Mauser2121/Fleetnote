@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
+import webdriver.MyWebDriver;
+
 
 public class Oscaro {
 	private static WebDriver mDriver;

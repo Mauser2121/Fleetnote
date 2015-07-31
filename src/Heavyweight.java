@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import webdriver.Exporter;
+
 public class Heavyweight {
 	private HashMap<String, List<String>> datas;
 	private List<String> allMarks;

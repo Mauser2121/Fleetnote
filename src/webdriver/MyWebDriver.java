@@ -1,3 +1,4 @@
+package webdriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.log4testng.Logger;
 
@@ -16,10 +17,7 @@ public class MyWebDriver extends HtmlUnitDriver {
 	    {
 	        super(BrowserVersion.FIREFOX_17);
 	        setJavascriptEnabled(true);
-
-//	        getWebClient().setCssEnabled(false);
-//	        getWebClient().setThrowExceptionOnFailingStatusCode(false);
-//	        getWebClient().setThrowExceptionOnScriptError(false);
+	        
 	        
 	        getWebClient().setCssErrorHandler(new SilentCssErrorHandler());
 	        getWebClient().setIncorrectnessListener(new IncorrectnessListener()

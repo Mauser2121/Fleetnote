@@ -9,8 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import au.com.bytecode.opencsv.CSVWriter;
-import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
+
 
 
 
@@ -53,7 +52,7 @@ public class IAEScrap {
 			
 			for(int j=0;j<20;j++)
 			{
-				//Arret à 10
+				//Arret ï¿½ 10
 				for(int h=1;h<2;h++)
 				{
 					WebElement suivant = mDriver.findElement(By.xpath("//*[@id='paginate_grad_addressbook_paginator_top']/ul/li[2]/a"));
@@ -107,7 +106,7 @@ public class IAEScrap {
 							c.setAdresse(mDriver.findElement(By.xpath("//*[@id='user_information']/ul/li[3]/dl/dd["+i+"]")).getText().trim().replace("\n", " "));
 						else if(texte.contains("Email"))
 							c.setEmail(mDriver.findElement(By.xpath("//*[@id='user_information']/ul/li[3]/dl/dd["+i+"]")).getText());
-						else if(texte.contains("Téléphone"))
+						else if(texte.contains("Tï¿½lï¿½phone"))
 							c.setTelephonepro(mDriver.findElement(By.xpath("//*[@id='user_information']/ul/li[3]/dl/dd["+i+"]")).getText());
 						
 					}

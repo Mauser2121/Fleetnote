@@ -12,6 +12,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import webdriver.Exporter;
+import webdriver.MyWebDriver;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.google.common.base.Predicate;
 import com.thoughtworks.selenium.condition.Presence;

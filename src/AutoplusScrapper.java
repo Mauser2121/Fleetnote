@@ -12,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import webdriver.MyWebDriver;
+
 import com.fleetnote.business.bean.references.Make;
 import com.fleetnote.business.dao.references.MakeDAO;
 

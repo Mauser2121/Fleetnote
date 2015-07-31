@@ -18,13 +18,15 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 
+import webdriver.FileDownloader;
+
 
 public class TotalGr {
 
 	private WebDriver mDriver;
 	private List<Password> passwords = new ArrayList<Password>();
 	DateFormat df = new SimpleDateFormat("dd/MM/yyyy");///TODO : Déporter dans une librairie ou passez à JAVA 7 ou 8
-	
+	DateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");
 	public TotalGr(){
 		System.setProperty("webdriver.chrome.driver","/env_dev/chromedriver.exe");
 		
@@ -44,6 +46,13 @@ public class TotalGr {
 		passwords.add(new Password("Lafarge", "87782862005 ","we-care12"));
 		passwords.add(new Password("Caldeo","87234197002","we-care12"));
 		
+		Calendar calMax = Calendar.getInstance();
+		calMax.set(Calendar.DATE,1);
+		calMax.set(Calendar.MONTH,6);
+		calMax.set(Calendar.YEAR,2015);
+		calMax.set(Calendar.DAY_OF_MONTH, 1);
+		
+		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.DATE,1);
 		cal.set(Calendar.MONTH,0);
@@ -54,15 +63,40 @@ public class TotalGr {
 		for (int i = 0; i < passwords.size(); i++) {
 			
 			connect(passwords.get(i).getLogin(), passwords.get(i).getPassword());
-			for(int j=0;j<7;j++){
-				cal.set(Calendar.DAY_OF_MONTH, 1);
-				Date firstDayOfMonth = cal.getTime();  
-				cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-				Date lastDayOfMonth = cal.getTime();
-				getTransactions(df.format(firstDayOfMonth),df.format(lastDayOfMonth),true);
-				cal.add(Calendar.MONTH, 1);
-		
+			
+			
+			while(cal.getTime().before(calMax.getTime())){
+				Date min = cal.getTime();  
+				cal.add(cal.DATE, 5);
+				Date max = cal.getTime();
+				String filename = passwords.get(i).getName()
+						  +df2.format(min)
+						  +"_"+df2.format(max)							
+						  +".xls";
+				getTransactions(df.format(min),df.format(max),filename,true);
+				cal.add(cal.DATE, 1);
 			}
+//			for(int j=0;j<7;j++){
+//				cal.set(Calendar.DAY_OF_MONTH, 1);
+//				int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+//				
+//				for(int k=0;k<Math.round(daysInMonth/5);k++)
+//				{
+//					
+//				}
+//				Date firstDayOfMonth = cal.getTime();  
+//				
+//				
+//				cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+//				Date lastDayOfMonth = cal.getTime();
+//				String filename = passwords.get(i).getName()
+//								  +cal.get(cal.MONTH)
+//								  +"_"+cal.get(cal.YEAR)							
+//								  +".xls";
+//				getTransactions(df.format(firstDayOfMonth),df.format(lastDayOfMonth),filename,true);
+//				cal.add(Calendar.MONTH, 1);
+//		
+//			}
 		
 			getCards();
 		}
@@ -83,7 +117,7 @@ public class TotalGr {
 		id.click();
 	}
 	
-	public void getTransactions(String min, String max,Boolean allTransac){
+	public void getTransactions(String min, String max,String filename,Boolean allTransac){
 		mDriver.get("https://gronline.total.fr/secure/clients/suivi/transactionrecherche.do?navRefClicked=nav.clients.suivi.transactionrecherche");
 		
 		WebElement dateMin = mDriver.findElement(By.name("criteres.dateTransactionMin"));
@@ -101,7 +135,18 @@ public class TotalGr {
 			selectFacturation.selectByValue("1");
 		
 		mDriver.findElement(By.name("rechercher")).click();
-		mDriver.get("https://gronline.total.fr/secure/clients/suivi/transactionresultat.do?method=exporterExcelTransaction");
+		
+		FileDownloader downloadTestFile = new FileDownloader(mDriver);
+//		mDriver.get("https://gronline.total.fr/secure/clients/suivi/transactionresultat.do?method=exporterExcelTransaction");
+		try {
+			downloadTestFile.downloadFile("https://gronline.total.fr/secure/clients/suivi/transactionresultat.do?method=exporterExcelTransaction",
+										  filename);
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	
 	}
 	
