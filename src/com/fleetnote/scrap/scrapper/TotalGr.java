@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.fleetnote.business.dao.tools.DateTool;
 import com.fleetnote.scrap.models.*;
 import com.fleetnote.scrap.webdriver.FileDownloader;
 import com.fleetnote.scrap.webdriver.FileDownloaderSSL;
@@ -188,15 +189,25 @@ public class TotalGr {
 			FileDownloader downloadTestFile = new FileDownloader(mDriver);
 			downloadTestFile.setSubDirectory(currentCompany+"/TID/");
 			for (WebElement line : lines) {
+				
+				String accountNumber = line.findElement(By.xpath("td[1]")).getText();
+				if(accountNumber.isEmpty())
+					accountNumber = "XXXXXXX";
+				
 				String beginDate = line.findElement(By.xpath("td[6]")).getText();
 				String endDate = line.findElement(By.xpath("td[7]")).getText();
-	
+				
+				String numberOfLine = line.findElement(By.xpath("td[8]")).getText();
+				
 				String script = line.findElement(By.tagName("input")).getAttribute("onclick");
 				String integer = extractInteger(script);
-	
+				
+				Date begin = DateTool.stringToDate(beginDate);
+				Date end   = DateTool.stringToDate(endDate);
+				
 				try {
-					if (integer != null) {
-						String filename = "TF" + integer + "_" + beginDate.replace("/", "") + "_" + endDate.replace("/", "")
+					if (integer != null && end.after(DateTool.getFirstOfMonthAtMidnight(new Date()))) {
+						String filename = "TF" + accountNumber + "_" +numberOfLine+"_" + beginDate.replace("/", "") + "_" + endDate.replace("/", "")
 								+ ".txt";
 						downloadTestFile.downloadFile(url + integer, filename);
 					}
